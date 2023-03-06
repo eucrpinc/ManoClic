@@ -46,7 +46,12 @@ with mp_hands.Hands(
                         pyautogui.click()
                         hands_closed = False
 
-        
+            # Mostrar el fotograma con la detección de manos y el estado del mouse
+        cv2.imshow("Hands Detection", image)
+
+        # Si se presiona la tecla 'q', salir del bucle
+        if cv2.waitKey(5) & 0xFF == ord('q'):
+            break        
 
     # Liberar los recursos de la captura de video y cerrar las ventanas abiertas
     cap.release()
