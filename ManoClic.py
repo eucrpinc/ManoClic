@@ -25,7 +25,20 @@ with mp_hands.Hands(
         if not success:
             break
 
-       
+           # Convertir el fotograma a RGB para que sea compatible con mediapipe
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+            # Detectar las manos en el fotograma
+            results = hands.process(image)
+
+            # Convertir el fotograma a BGR para que sea compatible con OpenCV
+            image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
+
+            # Si se detectó alguna mano en el fotograma
+            if results.multi_hand_landmarks:
+                # Dibujar los puntos y conexiones de la mano en el fotograma
+                for hand_landmarks in results.multi_hand_landmarks:
+                    mp_drawing.draw_landmarks(
+                        image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
             # Si se detectaron dos manos en el fotograma
             if len(results.multi_hand_landmarks) >= 2:
